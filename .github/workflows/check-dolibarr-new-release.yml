@@ -1,0 +1,37 @@
+name: Get Dolibarr latest release
+on:
+  schedule:
+    - cron: '36 * * * *'
+jobs:
+  get-release:
+    name: Get Dolibarr latest release
+    runs-on: ubuntu-latest
+    steps:
+    - id: dolibarr-release
+      uses: pozetroninc/github-action-get-latest-release@v0.7.0
+      with:
+        repository: Dolibarr/dolibarr
+        exclude: prerelease, draft
+    - id: check-tag
+      uses: mukunku/tag-exists-action@v1.5.0
+      with:
+        tag: ${{ steps.dolibarr-release.outputs.release }}
+    - name: Update Dockerfile
+      if: steps.check-tag.outputs.exists == 'false'
+      run: sed -i 's/DOLIBARR_VERSION=.*/DOLIBARR_VERSION=${{ steps.dolibarr-release.outputs.release }}/' Dockerfile
+    - name: Configure Git
+      if: steps.check-tag.outputs.exists == 'false'
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+    - name: Commit Dockerfile
+      if: steps.check-tag.outputs.exists == 'false'
+      run: "git commit -m '[Auto] New Dolibarr release: ${{ steps.dolibarr-release.outputs.release }}' -a"
+    - name: Create tag
+      if: steps.check-tag.outputs.exists == 'false'
+      run: git tag ${{ steps.dolibarr-release.outputs.release }}
+    - name: Push new tag
+      if: steps.check-tag.outputs.exists == 'false'
+      run: |
+          git push
+          git push origin ${{ steps.dolibarr-release.outputs.release }}
