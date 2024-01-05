@@ -1,7 +1,8 @@
+ARG ARCH=
 ARG PHP_VERSION=8.1.0
 ARG DOLIBARR_VERSION=18.0.4
 
-FROM php:${PHP_VERSION}-fpm-alpine
+FROM ${ARCH}php:${PHP_VERSION}-fpm-alpine
 RUN apk --no-cache update && apk --no-cache upgrade
 
 # PREPARE PHP
