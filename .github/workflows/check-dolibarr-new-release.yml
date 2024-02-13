@@ -18,6 +18,9 @@ jobs:
       with:
         tag: ${{ steps.dolibarr-release.outputs.release }}
 
+    - uses: actions/checkout@v4
+      if: steps.check-tag.outputs.exists == 'false'
+
     - name: Update Dockerfile
       if: steps.check-tag.outputs.exists == 'false'
       run: sed -i 's/DOLIBARR_VERSION=.*/DOLIBARR_VERSION=${{ steps.dolibarr-release.outputs.release }}/' Dockerfile
