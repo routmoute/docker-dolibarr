@@ -21,7 +21,7 @@ server {
         listen 80 default_server;
         listen [::]:80 default_server;
 
-        index index.php index.html;
+        index index.php;
         root /var/www/dolibarr/htdocs;
 
         location / {
@@ -33,6 +33,7 @@ server {
                 fastcgi_index index.php;
                 fastcgi_split_path_info ^(.+\.php)(.*)\$;
                 fastcgi_param PATH_INFO       \$fastcgi_path_info;
+                fastcgi_param PATH_TRANSLATED \$document_root\$fastcgi_script_name;
                 fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
                 fastcgi_hide_header X-Frame-Options;
                 fastcgi_intercept_errors on;
