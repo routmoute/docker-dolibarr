@@ -1,6 +1,6 @@
 ARG ARCH=
-ARG PHP_VERSION=8.2
-ARG DOLIBARR_VERSION=21.0.1
+ARG PHP_VERSION=8.3
+ARG DOLIBARR_VERSION=21.0.2
 
 FROM ${ARCH}php:${PHP_VERSION}-fpm-alpine
 RUN apk --no-cache update && apk --no-cache upgrade
