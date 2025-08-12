@@ -9,8 +9,7 @@ RUN apk --no-cache update && apk --no-cache upgrade
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 RUN apk --no-cache add zlib-dev libpng-dev libjpeg-turbo-dev freetype-dev krb5-dev icu-dev gettext-dev libzip-dev imap-dev libpq-dev openldap-dev
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
-    docker-php-ext-install -j$(nproc) intl gd opcache gettext calendar zip imap mysqli pgsql ldap
+    docker-php-ext-install -j$(nproc) intl gd opcache gettext calendar zip mysqli pgsql ldap
 
 # PREPARE NGINX
 RUN apk --no-cache add nginx
