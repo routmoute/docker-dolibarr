@@ -39,6 +39,10 @@ server {
                 fastcgi_hide_header X-Frame-Options;
                 fastcgi_intercept_errors on;
         }
+
+        location / {
+                try_files \$uri \$uri/ =404;
+        }
 }
 EOF
 
