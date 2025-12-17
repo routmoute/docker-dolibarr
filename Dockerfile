@@ -13,6 +13,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
 
 # PREPARE NGINX
 RUN apk --no-cache add nginx
+RUN sed -i 's/user nginx;/user www-data;/' /etc/nginx/nginx.conf
 RUN cat > /etc/nginx/http.d/default.conf <<EOF
 fastcgi_send_timeout 180s;
 fastcgi_read_timeout 180s;
@@ -38,10 +39,6 @@ server {
                 fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
                 fastcgi_hide_header X-Frame-Options;
                 fastcgi_intercept_errors on;
-        }
-
-        location / {
-                try_files \$uri \$uri/ =404;
         }
 }
 EOF
