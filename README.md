@@ -17,7 +17,6 @@ docker run -p 80:80 \
 ### Docker-compose
 
 ```yaml
-version: "3.8"
 services:
   dolibarr:
     image: routmoute/dolibarr
@@ -34,7 +33,6 @@ services:
 With this docker compose, the database server is `database` on port `3306`.
 
 ```yaml
-version: "3.8"
 services:
   database:
     image: mariadb
