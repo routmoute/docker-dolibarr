@@ -34,9 +34,9 @@ server {
     listen [::]:80 default_server;
     index index.php;
     root /var/www/dolibarr/htdocs;
-    add_header X-Frame-Options DENY;
+    add_header X-Frame-Options SAMEORIGIN;
     add_header X-Content-Type-Options nosniff;
-    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';";
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https:;";
     location ~ [^/]\.php(/|\$) {
         fastcgi_split_path_info ^(.+\.php)(.*)\$;
         if (!-f \$document_root\$fastcgi_script_name) {
