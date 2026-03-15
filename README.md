@@ -1,3 +1,7 @@
+# Archived
+
+Use Official docker image [https://github.com/Dolibarr/dolibarr-docker](https://github.com/Dolibarr/dolibarr-docker) [https://hub.docker.com/r/dolibarr/dolibarr](https://hub.docker.com/r/dolibarr/dolibarr) instead.
+
 # Docker Dolibarr
 
 A simple and light container with fully fonctional [Dolibarr](https://github.com/Dolibarr/dolibarr) powered by nginx and php-fpm
